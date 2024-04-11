@@ -1,7 +1,7 @@
-
 import pygame
 import random
 pygame.init()
+time = 0
 running = True
 pygame.mouse.set_visible(False)
 window = pygame.display.set_mode([1000, 1000])
@@ -42,7 +42,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if gun == "ar" and ar_ammo >= 1:
                 ar_ammo -= 1
-                print("shots fired")
+                print("ar fired")
             if gun == "sniper" and sniper_ammo >= 1:
                 sniper_ammo -= 1
                 print("sniper fired")
@@ -68,9 +68,11 @@ while running:
     health_bar_shadow = pygame.Rect(pos_1 - 5, pos_2 - 5, 210, 40)
     player = pygame.Rect(z, v, 40, 40)
     shadow = pygame.Rect(z + 5, v + 5, 40, 40)
+    enemy = pygame.Rect(num1, num2, 40, 40)
     window.fill((123, 123, 123))
     pygame.draw.rect(window, (80, 80, 80), shadow)
     pygame.draw.rect(window, (150, 75, 0), player)
+    pygame.draw.rect(window, (200, 0, 0), enemy)
     if gun == "ar":
         pygame.draw.rect(window, (255, 255, 255), crosshair1)
         pygame.draw.rect(window, (255, 255, 255), crosshair2)
@@ -82,35 +84,48 @@ while running:
         pygame.draw.line(window, (255, 255, 255), (x - 25, y - 25), (x, y), 5)
         pygame.draw.line(window, (255, 255, 255), (x - 2, y - 1), (x + 25, y - 25), 5)
     if gun == "pistol":
-        print("pistol")
+        pygame.draw.line(window, (255, 255, 255), (x - 1, y - 1), (x + 1, y - 1), 5)
+        pygame.draw.line(window, (255, 255, 255), (x - 2, y - 2), (x + 2, y - 2), 5)
+        pygame.draw.line(window, (255, 255, 255), (x - 3, y - 3), (x + 3, y - 3), 5)
+        pygame.draw.line(window, (255, 255, 255), (x - 4, y - 4), (x + 4, y - 4), 5)
+        pygame.draw.line(window, (255, 255, 255), (x - 5, y - 5), (x + 5, y - 5), 5)
     pygame.draw.rect(window, (100, 100, 100), health_bar_shadow)
+    if z == num1 and v == num2:
+        health - 1
     if health == 5:
         pygame.draw.rect(window, (230, 20, 0), health_bar1)
     if health == 4:
-        pygame.drwa.rect(window, (230, 20, 0), health_bar2)
+        pygame.draw.rect(window, (230, 20, 0), health_bar2)
     if health == 3:
-        pygame.drwa.rect(window, (230, 20, 0), health_bar3)
+        pygame.draw.rect(window, (230, 20, 0), health_bar3)
     if health == 2:
-        pygame.drwa.rect(window, (230, 20, 0), health_bar4)
+        pygame.draw.rect(window, (230, 20, 0), health_bar4)
     if health == 1:
         pygame.draw.rect(window, (230, 20, 0), health_bar5)
+    if health == 0:
+        print("game over")
+    if keys[pygame.K_a] and keys[pygame.K_LSHIFT]:
+        z += 0.5
     if keys[pygame.K_a]:
-        z -= 5
+        z -= 1
+    if keys[pygame.K_d] and keys[pygame.K_LSHIFT]:
+        z -= 0.5
     if keys[pygame.K_d]:
-        z += 5
+        z += 1
+    if keys[pygame.K_w] and keys[pygame.K_LSHIFT]:
+        v += 0.5
     if keys[pygame.K_w]:
-        v -= 5
+        v -= 1
+    if keys[pygame.K_s] and keys[pygame.K_LSHIFT]:
+        v -= 0.5
     if keys[pygame.K_s]:
-        v += 5             
+        v += 1     
     if keys[pygame.K_LEFT]:
-        z -= 5
+        z -= 1
     if keys[pygame.K_RIGHT]:
-        z += 5
+        z += 1
     if keys[pygame.K_UP]:
-        v -= 5
+        v -= 1
     if keys[pygame.K_DOWN]:
-        v += 5               
+        v += 1       
     pygame.display.flip()
-    #replit
-    #visual code studio
-
